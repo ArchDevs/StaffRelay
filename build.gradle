@@ -18,7 +18,15 @@ repositories {
 }
 
 dependencies {
-compileOnly "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT"
+    // Spigot API
+    compileOnly "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT"
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.38")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
 }
 
 def targetJavaVersion = 8
