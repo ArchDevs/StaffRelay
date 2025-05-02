@@ -35,6 +35,7 @@ public class CommandManager implements CommandExecutor {
         for (int i = 0; i < getSubCommands().size(); i++) {
             if (args[0].equalsIgnoreCase(getSubCommands().get(i).getName()) && player.hasPermission("staffrelay.admin")) {
                 getSubCommands().get(i).perform(player, args);
+                return true;
             }
         }
 
