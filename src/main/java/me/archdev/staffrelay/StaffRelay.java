@@ -12,13 +12,10 @@ public final class StaffRelay extends JavaPlugin {
 
     @Getter
     private static StaffRelay instance;
-    @Getter
-    private static Logger logger;
 
     @Override
     public void onLoad() {
         instance = this;
-        logger = Bukkit.getLogger();
     }
 
     @Override
@@ -28,7 +25,7 @@ public final class StaffRelay extends JavaPlugin {
         getCommand("staffrelay").setExecutor(new CommandManager());
 
         final long endTime = System.currentTimeMillis() - startTime;
-        logger.info(ChatUtil.formatLegacy("&aPlugin was loaded in: " + endTime));
+        Bukkit.getLogger().info(ChatUtil.formatLegacy("&aPlugin was loaded in: " + endTime));
     }
 
     @Override

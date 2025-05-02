@@ -2,3 +2,6 @@ name: StaffRelay
 version: '${version}'
 main: me.archdev.staffrelay.StaffRelay
 api-version: '1.13'
+commands:
+  staffrelay:
+    description: Command that allows to message with Staff only
