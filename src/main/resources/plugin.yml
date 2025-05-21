@@ -2,6 +2,16 @@ name: StaffRelay
 version: '${version}'
 main: me.archdev.staffrelay.StaffRelay
 api-version: '1.13'
+author: ArchDev
+website: https://github.com/ArchDevs
 commands:
   staffrelay:
-    description: Command that allows to message with Staff only
+    description: Command that allows to message with staff only
+    aliases:
+      - staffchat
+      - staffc
+      - schat
+      - sc
+permissions:
+  staffrelay.access:
+    description: Gives access to staffrelay command
