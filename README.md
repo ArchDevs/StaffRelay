@@ -7,7 +7,8 @@ Plugin that allows to staff message between each other easily
 
 ## Goals
 - Cross server chat using Redis
-- Discord implementation
+- Discord Bot implementation
+- Telegram Bot implementation
 
 ## Authors
 - [ArchDev](https://github.com/ArchDevs)
