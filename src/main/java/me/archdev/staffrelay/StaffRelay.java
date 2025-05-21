@@ -2,11 +2,9 @@ package me.archdev.staffrelay;
 
 import lombok.Getter;
 import me.archdev.staffrelay.manager.CommandManager;
-import me.archdev.staffrelay.util.ChatUtil;
+import me.archdev.staffrelay.util.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Logger;
 
 public final class StaffRelay extends JavaPlugin {
 
@@ -25,7 +23,7 @@ public final class StaffRelay extends JavaPlugin {
         getCommand("staffrelay").setExecutor(new CommandManager());
 
         final long endTime = System.currentTimeMillis() - startTime;
-        Bukkit.getLogger().info(ChatUtil.formatLegacy("&aPlugin was loaded in: " + endTime));
+        Bukkit.getLogger().info(ColorUtil.formatLegacy("&aPlugin was loaded in: " + endTime));
     }
 
     @Override

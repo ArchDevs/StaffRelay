@@ -2,7 +2,7 @@ package me.archdev.staffrelay.command.subcommands;
 
 import me.archdev.staffrelay.StaffRelay;
 import me.archdev.staffrelay.command.SubCommand;
-import me.archdev.staffrelay.util.ChatUtil;
+import me.archdev.staffrelay.util.ColorUtil;
 import org.bukkit.entity.Player;
 
 public class ReloadSubcommand implements SubCommand {
@@ -17,6 +17,6 @@ public class ReloadSubcommand implements SubCommand {
 
         StaffRelay.getInstance().reloadConfig();
         long endTime = System.currentTimeMillis() - startTime;
-        player.sendMessage(ChatUtil.formatLegacy("&aConfig was reloaded in: " + endTime));
+        player.sendMessage(ColorUtil.formatLegacy("&aConfig was reloaded in: " + endTime));
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.archdev.staffrelay.command.SubCommand;
 import me.archdev.staffrelay.command.subcommands.ReloadSubcommand;
 import me.archdev.staffrelay.util.ChatUtil;
+import me.archdev.staffrelay.util.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,7 +29,7 @@ public class CommandManager implements CommandExecutor {
         Player player = (Player) sender;
 
         if (!player.hasPermission("staffrelay.access")) {
-            player.sendMessage(ChatUtil.formatLegacy("&cYou do not have permission to do that"));
+            player.sendMessage(ColorUtil.formatLegacy("&cYou do not have permission to do that"));
             return true;
         }
 
@@ -39,9 +40,7 @@ public class CommandManager implements CommandExecutor {
             }
         }
 
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(String.format("%s: %s", player.getName(), args[0]));
-        }
+        ChatUtil.sendMessageToAll(player, args);
 
         return true;
     }
