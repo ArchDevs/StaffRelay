@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.gradleup.shadow' version '8.3.6'
 }
 
 group = 'me.archdev'
@@ -18,15 +19,18 @@ repositories {
 }
 
 dependencies {
-    // Spigot API
+    // Spigot API - https://spigotmc.org/
     compileOnly "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT"
 
-    // Lombok
-    compileOnly("org.projectlombok:lombok:1.18.38")
-    annotationProcessor("org.projectlombok:lombok:1.18.38")
+    // Java Discord API (JDA) - https://github.com/discord-jda/JDA
+    implementation "net.dv8tion:JDA:5.5.1"
 
-    testCompileOnly("org.projectlombok:lombok:1.18.38")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+    // Lombok - https://projectlombok.org
+    compileOnly "org.projectlombok:lombok:1.18.38"
+    annotationProcessor "org.projectlombok:lombok:1.18.38"
+
+    testCompileOnly "org.projectlombok:lombok:1.18.38"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.38"
 }
 
 def targetJavaVersion = 8
