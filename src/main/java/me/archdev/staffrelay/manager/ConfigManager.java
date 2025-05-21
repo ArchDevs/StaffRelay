@@ -1,30 +1,52 @@
 package me.archdev.staffrelay.manager;
 
+import me.archdev.staffrelay.util.ConfigUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 public class ConfigManager {
 
     private static ConfigurationSection discordSection;
+    private static ConfigurationSection messagesSection;
+
+    private static List<ConfigurationSection> sections;
 
     public static boolean loadConfig(FileConfiguration config, JavaPlugin plugin) {
         plugin.getConfig().options().copyDefaults();
         plugin.saveDefaultConfig();
 
-        discordSection = config.getConfigurationSection("discord-bot");
+        sections = new ArrayList<>();
 
-        if (discordSection == null) {
-            plugin.getLogger().severe("discord-bot section was not found, plugin will disable");
+        discordSection = config.getConfigurationSection("discord-bot");
+        messagesSection = config.getConfigurationSection("messages");
+
+        sections.clear();
+        sections.addAll(Arrays.asList(discordSection, messagesSection));
+
+        // Check for nulls
+        if (sections.stream().anyMatch(Objects::isNull)) {
+            plugin.getLogger().severe("Config file is corrupted, plugin will disable");
             plugin.getServer().getPluginManager().disablePlugin(plugin);
             return false;
         }
 
-        botToken = get("bot-token");
-        botActivity = get("bot-activity", "PLAYING").toUpperCase();
-        botActivityText = get("bot-activity-text", "Minecraft");
-        botStatus = get("bot-status", "ONLINE").toUpperCase();
-        channelId = get("channel-id");
+        // Discord Section
+        botToken = ConfigUtil.get(discordSection, "bot-token");
+        botActivity = ConfigUtil.get(discordSection, "bot-activity", "PLAYING").toUpperCase();
+        botActivityText = ConfigUtil.get(discordSection, "bot-activity-text", "Minecraft");
+        botStatus = ConfigUtil.get(discordSection, "bot-status", "ONLINE").toUpperCase();
+        channelId = ConfigUtil.get(discordSection, "channel-id");
+
+        // Messages Section
+        noPerm = ConfigUtil.get(messagesSection, "no-permission", "&cYou do not have permission to do that");
+        configReload = ConfigUtil.get(messagesSection, "config-reload", "&aConfig was reloaded in: %s ms");
+
 
         return true;
     }
@@ -36,12 +58,8 @@ public class ConfigManager {
     public static String botStatus;
     public static String channelId;
 
-    private static String get(String key) {
-        return discordSection.getString(key, "");
-    }
-
-    private static String get(String key, String def) {
-        return discordSection.getString(key, def);
-    }
+    // Messages Section
+    public static String noPerm;
+    public static String configReload;
 
 }

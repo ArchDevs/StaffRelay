@@ -3,7 +3,11 @@ package me.archdev.staffrelay.command.subcommands;
 import me.archdev.staffrelay.StaffRelay;
 import me.archdev.staffrelay.command.SubCommand;
 import me.archdev.staffrelay.util.ColorUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.time.Duration;
+import java.time.Instant;
 
 public class ReloadSubcommand implements SubCommand {
     @Override
@@ -13,10 +17,11 @@ public class ReloadSubcommand implements SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        long startTime = System.currentTimeMillis();
+        Instant start = Instant.now();
 
         StaffRelay.getInstance().reloadConfig();
-        long endTime = System.currentTimeMillis() - startTime;
-        player.sendMessage(ColorUtil.formatLegacy("&aConfig was reloaded in: " + endTime));
+
+        Duration timeElapsed = Duration.between(start, Instant.now());
+        player.sendMessage(ColorUtil.formatLegacy(String.format("&aConfig was reloaded in: %s ms", timeElapsed.toMillis())));
     }
 }

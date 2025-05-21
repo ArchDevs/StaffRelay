@@ -5,7 +5,6 @@ import me.archdev.staffrelay.command.SubCommand;
 import me.archdev.staffrelay.command.subcommands.ReloadSubcommand;
 import me.archdev.staffrelay.util.ChatUtil;
 import me.archdev.staffrelay.util.ColorUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,7 +28,7 @@ public class CommandManager implements CommandExecutor {
         Player player = (Player) sender;
 
         if (!player.hasPermission("staffrelay.access")) {
-            player.sendMessage(ColorUtil.formatLegacy("&cYou do not have permission to do that"));
+            player.sendMessage(ColorUtil.formatLegacy(ConfigManager.noPerm));
             return true;
         }
 

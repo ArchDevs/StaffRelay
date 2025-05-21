@@ -3,17 +3,10 @@ package me.archdev.staffrelay;
 import lombok.Getter;
 import lombok.Setter;
 import me.archdev.staffrelay.jda.JDAInitializer;
-import me.archdev.staffrelay.jda.MessageReceiveListener;
 import me.archdev.staffrelay.listener.PlayerChatListener;
 import me.archdev.staffrelay.manager.ConfigManager;
 import me.archdev.staffrelay.manager.CommandManager;
-import me.archdev.staffrelay.util.ColorUtil;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.internal.utils.JDALogger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,8 +45,8 @@ public final class StaffRelay extends JavaPlugin {
     @Override
     public void onDisable() {
         try {
-            jda.shutdownNow(); // Use shutdownNow for immediate shutdown
-            jda.awaitShutdown(); // Waits for complete shutdown
+            jda.shutdownNow();
+            jda.awaitShutdown();
         } catch (Exception e) {
             getLogger().warning("Error shutting down JDA: " + e.getMessage());
             e.printStackTrace();

@@ -10,3 +10,7 @@ discord-bot:
   bot-activity-text: "Minecraft"
   # What online status will have bot. List of them: ONLINE, IDLE, DO_NOT_DISTURB, INVISIBLE, OFFLINE
   bot-status: ONLINE
+
+messages:
+  no-permission: "&cYou do not have permission to do that"
+  config-reload: "&aConfig was reloaded in: %s ms" # %s is a placeholder that displays time
