@@ -2,8 +2,10 @@ discord-bot:
   # Get token from https://discord.dev/
   # Make sure you have enabled Discord Intents
   bot-token: "" # Leave blank if you do not want to use discord integration
-  # List of activities you can type in: playing, competing, listening, streaming, playing and watching
-  bot-activity: playing
+  # ID of a text channel where all messages will be displayed
+  channel-id: 0000000000
+  # List of activities you can type in: PLAYING, COMPETING, LISTENING, STREAMING, WATCHING
+  bot-activity: PLAYING
   # You can type here anything. For example: minecraft (Result: playing minecraft)
   bot-activity-text: "Minecraft"
   # What online status will have bot. List of them: ONLINE, IDLE, DO_NOT_DISTURB, INVISIBLE, OFFLINE
