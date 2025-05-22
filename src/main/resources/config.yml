@@ -14,3 +14,16 @@ discord-bot:
 messages:
   no-permission: "&cYou do not have permission to do that"
   config-reload: "&aConfig was reloaded in: %s ms" # %s is a placeholder that displays time
+
+database:
+  type: h2
+  h2:
+    file: ./plugins/StaffRelay/staffrelay
+  mysql:
+    host: localhost
+    port: 3306
+    database: staffrelay
+    username: root
+    password: password
+  sqlite:
+    file: ./plugins/StaffRelay/staffrelay.db
