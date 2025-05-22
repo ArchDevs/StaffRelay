@@ -15,25 +15,27 @@ public class JDAInitializer {
     public static void init(JavaPlugin plugin) {
         JDALogger.setFallbackLoggerEnabled(false);
 
-        if (ConfigManager.botToken == null) {
-            plugin.getLogger().severe("Bot token is missing in config. Disabling plugin.");
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
-            return;
-        }
-
         try {
-            StaffRelay.setJda(createBot());
+            JDA bot = createBot(plugin);
+            if (bot != null) {
+                StaffRelay.setJda(bot);
+                plugin.getLogger().info("Discord bot started successfully.");
+            } else {
+                plugin.getLogger().info("No bot token provided. Discord bot will not be started.");
+            }
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to create Discord bot: " + e.getMessage());
             e.printStackTrace();
             plugin.getServer().getPluginManager().disablePlugin(plugin);
-            return;
         }
-
-        plugin.getLogger().info("Discord bot started successfully.");
     }
 
-    private static JDA createBot() {
+
+    private static JDA createBot(JavaPlugin plugin) {
+        if (ConfigManager.botToken == null || ConfigManager.botToken.isEmpty()) {
+            return null;
+        }
+
         return JDABuilder.createDefault(ConfigManager.botToken)
                 .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_TYPING, GatewayIntent.MESSAGE_CONTENT)
                 .addEventListeners(new MessageReceiveListener())
@@ -41,4 +43,5 @@ public class JDAInitializer {
                 .setStatus(OnlineStatus.valueOf(ConfigManager.botStatus))
                 .build();
     }
+
 }
