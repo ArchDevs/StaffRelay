@@ -16,9 +16,9 @@ messages:
   config-reload: "&aConfig was reloaded in: %s ms" # %s is a placeholder that displays time
 
 database:
-  type: h2
+  db-type: sqlite # List of database types: h2, mysql, sqlite
   h2:
-    file: ./plugins/StaffRelay/staffrelay
+    file: ./plugins/StaffRelay/staffrelay # Do not change if you do not know, what are you doing !!!
   mysql:
     host: localhost
     port: 3306
@@ -26,4 +26,4 @@ database:
     username: root
     password: password
   sqlite:
-    file: ./plugins/StaffRelay/staffrelay.db
+    file: ./plugins/StaffRelay/staffrelay.db # Do not change if you do not know, what are you doing !!!

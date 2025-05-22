@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.archdev'
-version = '0.0.2'
+version = '0.0.3'
 
 repositories {
     mavenCentral()
@@ -67,18 +67,7 @@ processResources {
 }
 
 shadowJar {
-    // Relocate dependencies to avoid conflicts with other plugins
-    relocate 'com.zaxxer.hikari', 'me.archdev.staffrelay.hikari'
-    relocate 'org.h2', 'me.archdev.staffrelay.h2'
-    relocate 'com.mysql', 'me.archdev.staffrelay.mysql'
-    relocate 'org.sqlite', 'me.archdev.staffrelay.sqlite'
     relocate 'net.dv8tion', 'me.archdev.staffrelay.jda'
-
-    // Minimize to exclude unused classes
-    minimize()
-
-    // Optional: Exclude unnecessary dependencies or files
-    exclude 'META-INF/**' // Remove unnecessary metadata
 }
 
 tasks.build.dependsOn shadowJar

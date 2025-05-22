@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class ChatUtil {
-    public static void sendMessageToAll(Player player, String[] args) {
+    public static void sendMessageToAll(Player player, String message) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(String.format("%s: %s", player.getName(), args[0]));
+            p.sendMessage(String.format("%s: %s", player.getName(), message));
         }
     }
 }

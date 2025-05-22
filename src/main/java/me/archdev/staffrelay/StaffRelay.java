@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import me.archdev.staffrelay.jda.JDAInitializer;
 import me.archdev.staffrelay.listener.PlayerChatListener;
-import me.archdev.staffrelay.manager.ConfigManager;
 import me.archdev.staffrelay.manager.CommandManager;
+import me.archdev.staffrelay.manager.ConfigManager;
+import me.archdev.staffrelay.manager.DatabaseManager;
 import net.dv8tion.jda.api.JDA;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +35,7 @@ public final class StaffRelay extends JavaPlugin {
         ConfigManager.loadConfig(getConfig(), instance);
 
         JDAInitializer.init(instance);
+        DatabaseManager.init(instance);
 
         getCommand("staffrelay").setExecutor(new CommandManager());
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), instance);
@@ -51,6 +53,9 @@ public final class StaffRelay extends JavaPlugin {
             getLogger().warning("Error shutting down JDA: " + e.getMessage());
             e.printStackTrace();
         }
+
+        DatabaseManager.closeConnection();
+
         instance = null;
     }
 }

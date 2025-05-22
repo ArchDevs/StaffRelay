@@ -23,4 +23,8 @@ public class ConfigUtil {
     public static String get(ConfigurationSection section, String key, String def) {
         return section.getString(key, def);
     }
+
+    public static int getInt(ConfigurationSection section, String key, int def) {
+        return section.getInt(key, def);
+    }
 }
