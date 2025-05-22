@@ -2,7 +2,7 @@ package me.archdev.staffrelay;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.archdev.staffrelay.jda.JDAInitializer;
+import me.archdev.staffrelay.manager.JDAManager;
 import me.archdev.staffrelay.listener.PlayerChatListener;
 import me.archdev.staffrelay.manager.CommandManager;
 import me.archdev.staffrelay.manager.ConfigManager;
@@ -34,7 +34,7 @@ public final class StaffRelay extends JavaPlugin {
 
         ConfigManager.loadConfig(getConfig(), instance);
 
-        JDAInitializer.init(instance);
+        JDAManager.init(instance);
         DatabaseManager.init(instance);
 
         getCommand("staffrelay").setExecutor(new CommandManager());
@@ -46,14 +46,7 @@ public final class StaffRelay extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        try {
-            jda.shutdownNow();
-            jda.awaitShutdown();
-        } catch (Exception e) {
-            getLogger().warning("Error shutting down JDA: " + e.getMessage());
-            e.printStackTrace();
-        }
-
+        JDAManager.shutdown(instance, jda);
         DatabaseManager.closeConnection();
 
         instance = null;

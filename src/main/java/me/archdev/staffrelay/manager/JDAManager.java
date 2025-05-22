@@ -1,7 +1,7 @@
-package me.archdev.staffrelay.jda;
+package me.archdev.staffrelay.manager;
 
 import me.archdev.staffrelay.StaffRelay;
-import me.archdev.staffrelay.manager.ConfigManager;
+import me.archdev.staffrelay.jda.MessageReceiveListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.internal.utils.JDALogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class JDAInitializer {
+public class JDAManager {
 
     public static void init(JavaPlugin plugin) {
         JDALogger.setFallbackLoggerEnabled(false);
@@ -42,6 +42,16 @@ public class JDAInitializer {
                 .setActivity(Activity.of(Activity.ActivityType.valueOf(ConfigManager.botActivity), ConfigManager.botActivityText))
                 .setStatus(OnlineStatus.valueOf(ConfigManager.botStatus))
                 .build();
+    }
+
+    public static void shutdown(JavaPlugin plugin, JDA jda) {
+        try {
+            jda.shutdownNow();
+            jda.awaitShutdown();
+        } catch (Exception e) {
+            plugin.getLogger().warning("Error shutting down JDA: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
