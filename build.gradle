@@ -70,7 +70,10 @@ processResources {
 }
 
 shadowJar {
-    relocate 'net.dv8tion', 'me.archdev.staffrelay.jda'
+    minimize()
+
+    relocate 'net.dv8tion', 'me.archdev.staffrelay.jdapi'
+    relocate 'io.lettuce', 'me.archdev.staffrelay.lettuce'
 }
 
 tasks.build.dependsOn shadowJar
