@@ -3,6 +3,7 @@ package me.archdev.staffrelay.dao;
 import me.archdev.staffrelay.StaffRelay;
 import me.archdev.staffrelay.manager.DatabaseManager;
 import me.archdev.staffrelay.model.StaffMessage;
+import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,12 +24,14 @@ public class StaffMessageDAO {
     }
 
     public static void saveMessageToDB(String username, String message, Timestamp sendTime) {
-        try {
-            saveMessage(new StaffMessage(username, message, sendTime));
-        } catch (SQLException e) {
-            StaffRelay.getInstance().getLogger().severe("Failed to save message: " + e.getMessage());
-            e.printStackTrace();
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(StaffRelay.getInstance(), () -> {
+            try {
+                saveMessage(new StaffMessage(username, message, sendTime));
+            } catch (SQLException e) {
+                StaffRelay.getInstance().getLogger().severe("Failed to save message: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     public static void saveMessagesBatch(List<StaffMessage> messages) throws SQLException {
