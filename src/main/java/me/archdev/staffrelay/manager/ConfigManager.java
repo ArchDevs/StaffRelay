@@ -1,5 +1,6 @@
 package me.archdev.staffrelay.manager;
 
+import me.archdev.staffrelay.enums.DatabaseType;
 import me.archdev.staffrelay.util.ConfigUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -50,7 +51,7 @@ public class ConfigManager {
         configReload = ConfigUtil.get(messagesSection, "config-reload", "&aConfig was reloaded in: %s ms");
 
         // DataBase Section
-        dbType = ConfigUtil.get(databaseSection, "db-type", "sqlite").toLowerCase();
+        dbType = DatabaseType.valueOf(ConfigUtil.get(databaseSection, "db-type", "sqlite").toUpperCase());
         // H2
         h2File = ConfigUtil.get(databaseSection, "h2.file", "./plugins/StaffRelay/staffrelay");
         // MySQL
@@ -76,7 +77,7 @@ public class ConfigManager {
     public static String configReload;
 
     // DataBase Section
-    public static String dbType;
+    public static DatabaseType dbType;
     // H2
     public static String h2File;
     // MySQL
