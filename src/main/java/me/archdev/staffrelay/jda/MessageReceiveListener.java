@@ -1,7 +1,7 @@
 package me.archdev.staffrelay.jda;
 
-import me.archdev.staffrelay.dao.StaffMessageDAO;
 import me.archdev.staffrelay.manager.ConfigManager;
+import me.archdev.staffrelay.manager.DatabaseManager;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -18,7 +18,7 @@ public class MessageReceiveListener extends ListenerAdapter {
 
         if (event.getAuthor().isBot() || event.getAuthor().isSystem()) return;
 
-        StaffMessageDAO.saveMessageToDB("DS_Message_" + event.getAuthor().getName(), event.getMessage().getContentRaw(), Timestamp.from(Instant.now()));
+        DatabaseManager.saveMessageAsync("DS_Message_" + event.getAuthor().getName(), event.getMessage().getContentRaw(), Timestamp.from(Instant.now()));
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (!p.hasPermission("staffrelay.access")) return;

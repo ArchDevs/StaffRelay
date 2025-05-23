@@ -1,12 +1,9 @@
 package me.archdev.staffrelay.util;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 public class ChatUtil {
-    public static void sendMessageToAll(Player player, String message) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(String.format("%s: %s", player.getName(), message));
-        }
+    public static void runConsoleCommand(String command) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
     }
 }

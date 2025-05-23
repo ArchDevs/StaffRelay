@@ -3,11 +3,16 @@ package me.archdev.staffrelay.manager;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
+import me.archdev.staffrelay.StaffRelay;
+import me.archdev.staffrelay.dao.StaffMessageDAO;
+import me.archdev.staffrelay.model.StaffMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class DatabaseManager {
     @Getter
@@ -56,7 +61,13 @@ public class DatabaseManager {
 
         dataSource = new HikariDataSource(hikariConfig);
 
-        createTable();
+        Bukkit.getScheduler().runTaskAsynchronously(StaffRelay.getInstance(), () -> {
+            try {
+                createTable();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private static void createTable() throws SQLException {
@@ -70,6 +81,17 @@ public class DatabaseManager {
         try (Connection connection = dataSource.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.executeUpdate();
         }
+    }
+
+    public static void saveMessageAsync(String username, String message, Timestamp sendTime) {
+        Bukkit.getScheduler().runTaskAsynchronously(StaffRelay.getInstance(), () -> {
+            try {
+                StaffMessageDAO.saveMessage(new StaffMessage(username, message, sendTime));
+            } catch (SQLException e) {
+                StaffRelay.getInstance().getLogger().severe("Failed to save message: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     public static void closeConnection() {

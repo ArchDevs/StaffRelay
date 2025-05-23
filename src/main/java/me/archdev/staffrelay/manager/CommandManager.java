@@ -3,9 +3,8 @@ package me.archdev.staffrelay.manager;
 import lombok.Getter;
 import me.archdev.staffrelay.command.SubCommand;
 import me.archdev.staffrelay.command.subcommands.ReloadSubcommand;
-import me.archdev.staffrelay.dao.StaffMessageDAO;
-import me.archdev.staffrelay.util.ChatUtil;
 import me.archdev.staffrelay.util.ColorUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -44,8 +43,11 @@ public class CommandManager implements CommandExecutor {
 
         String message = String.join(" ", args);
 
-        StaffMessageDAO.saveMessageToDB(player.getName(), message, Timestamp.from(Instant.now()));
-        ChatUtil.sendMessageToAll(player, message);
+        DatabaseManager.saveMessageAsync(player.getName(), message, Timestamp.from(Instant.now()));
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.sendMessage(String.format("%s: %s", player.getName(), message));
+        }
 
         return true;
     }
