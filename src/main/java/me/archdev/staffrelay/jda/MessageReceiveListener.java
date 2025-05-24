@@ -22,7 +22,7 @@ public class MessageReceiveListener extends ListenerAdapter {
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (!p.hasPermission("staffrelay.access")) return;
-            p.sendMessage("[Discord] | " + event.getAuthor().getName() + ": " + event.getMessage().getContentRaw());
+            p.sendMessage(String.format("[Discord] | %s: %s", event.getAuthor().getName(), event.getMessage().getContentRaw()));
         }
     }
 }

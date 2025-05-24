@@ -2,11 +2,8 @@ package me.archdev.staffrelay;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.archdev.staffrelay.manager.JDAManager;
+import me.archdev.staffrelay.manager.*;
 import me.archdev.staffrelay.listener.PlayerChatListener;
-import me.archdev.staffrelay.manager.CommandManager;
-import me.archdev.staffrelay.manager.ConfigManager;
-import me.archdev.staffrelay.manager.DatabaseManager;
 import net.dv8tion.jda.api.JDA;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

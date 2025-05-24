@@ -8,7 +8,7 @@ StaffRelay is a plugin that allows server staff members to communicate easily ac
 - SQL logging of all messages
 
 ## Planned Features / Goals
-- Cross-server communication using Redis
+- Cross-server communication using ~~Redis~~ Proxy for better UX
 - Telegram bot integration
 - Full documentation
 - Easy setup via commands

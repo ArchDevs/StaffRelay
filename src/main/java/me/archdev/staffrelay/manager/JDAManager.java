@@ -16,7 +16,7 @@ public class JDAManager {
         JDALogger.setFallbackLoggerEnabled(false);
 
         try {
-            JDA bot = createBot(plugin);
+            JDA bot = createBot();
             if (bot != null) {
                 StaffRelay.setJda(bot);
                 plugin.getLogger().info("Discord bot started successfully.");
@@ -31,7 +31,7 @@ public class JDAManager {
     }
 
 
-    private static JDA createBot(JavaPlugin plugin) {
+    private static JDA createBot() {
         if (ConfigManager.botToken == null || ConfigManager.botToken.isEmpty()) {
             return null;
         }
